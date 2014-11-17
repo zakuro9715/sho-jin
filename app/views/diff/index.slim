@@ -41,9 +41,10 @@ table.diff-table
           - solved_by_second = true
           - i2 += 1
           - problem_id = i2
+        - problem_id = sprintf("%04d", problem_id)
         td
           .problem_id
-            = problem_id
+            = link_to problem_id, "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=#{problem_id}"
             
         td
           - if solved_by_first
