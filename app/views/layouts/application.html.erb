@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "" %> | SHO-Jin</title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <header>
+      <nav class="top-bar">
+        <ul class="title-area"><li class="name"><h1><a href="/">SHO-Jin<a><h1></li></ul>
+        <section class="top-bar-section">
+          <ul class="left">
+            <li><%= link_to 'Diff', controller: :diff, action: :index %></li> 
+          </ul>
+        </section>
+        <section class="top-bar-section">
+          <ul class="right">
+            <li class="has-dropdown not-click">
+              <a href="#">Contact</a>
+              <ul class="dropdown">
+                <li><%= link_to 'Git Hub', 'https://github.com/zakuro9715/sho-jin' %></li>
+                <li><%= link_to 'Twitter', 'https://twitter.com/zakuro9715' %></li>
+                <li><%= link_to 'Web Site', 'http://yuzakuro.me' %></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </nav>
+    </header>
+    <div class="wrapper">
+      <%= yield %>
+      <footer>
+        <p class="text-center">
+          <small>Copylight (c) 2014 <a href='http://yuzakuro.me'>YuZakuro</a> All Rights Reserved.</small>
+        </p>
+      </footer>
+    </div>
+    <%= javascript_include_tag "application" %>
+  </body>
+</html>

@@ -1,0 +1,53 @@
+- content_for :title
+  | Diff
+
+= form_tag '/diff', method: 'get'
+  fieldset
+    .row
+      .large-5.columns
+        = text_field_tag :first, nil, placeholder: 'reew4492'
+      .large-5.columns
+        = text_field_tag :second, nil, placeholder: 'zakuro9715'
+      .large-2.column
+        = submit_tag 'diff'
+
+table.diff-table
+  thead
+    tr
+      th
+        | problem id
+      th
+        = @first_user
+      th
+        = @second_user
+  tbody
+    - i1 = 0
+    - i2 = 0
+    - while i1 < @problems_first.length and i2 < @problems_second.length 
+      - solved_by_first = false
+      - solved_by_second = false
+      tr
+        - if @problems_first[i1] == @problems_second[i2]
+          - solved_by_first = true
+          - solved_by_second = true
+          - i1 += 1
+          - i2 += 1
+          - problem_id = i1
+        - elsif @problems_first[i1] < @problems_second[i2]
+          - solved_by_first = true
+          - i1 += 1
+          - problem_id = i1
+        - else
+          - solved_by_second = true
+          - i2 += 1
+          - problem_id = i2
+        td
+          .problem_id
+            = problem_id
+            
+        td
+          - if solved_by_first
+            | o
+        td
+          - if solved_by_second
+            | o
