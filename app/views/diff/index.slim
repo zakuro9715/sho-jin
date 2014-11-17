@@ -8,7 +8,10 @@
         = text_field_tag :first, @first_user, placeholder: 'reew4492'
       .large-5.columns
         = text_field_tag :second, @second_user, placeholder: 'zakuro9715'
-      .large-2.column
+      .large-1.columns.text-center
+        = label_tag :xor, "XOR"
+        = check_box_tag :xor, nil, @xor
+      .large-1.columns
         = submit_tag 'diff'
 
 table.diff-table
@@ -26,29 +29,32 @@ table.diff-table
     - while i1 < @problems_first.length and i2 < @problems_second.length 
       - solved_by_first = false
       - solved_by_second = false
-      tr
-        - if @problems_first[i1] == @problems_second[i2]
-          - solved_by_first = true
-          - solved_by_second = true
-          - i1 += 1
-          - i2 += 1
-          - problem_id = i1
-        - elsif @problems_first[i1] < @problems_second[i2]
-          - solved_by_first = true
-          - i1 += 1
-          - problem_id = i1
-        - else
-          - solved_by_second = true
-          - i2 += 1
-          - problem_id = i2
-        - problem_id = sprintf("%04d", problem_id)
-        td
-          .problem_id
-            = link_to problem_id, "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=#{problem_id}"
-            
-        td
-          - if solved_by_first
-            | o
-        td
-          - if solved_by_second
-            | o
+      - skip = false
+      - if @problems_first[i1] == @problems_second[i2]
+        - solved_by_first = true
+        - solved_by_second = true
+        - i1 += 1
+        - i2 += 1
+        - problem_id = i1
+        - skip = @xor
+      - elsif @problems_first[i1] < @problems_second[i2]
+        - solved_by_first = true
+        - i1 += 1
+        - problem_id = i1
+      - else
+        - solved_by_second = true
+        - i2 += 1
+        - problem_id = i2
+      
+      - problem_id = sprintf("%04d", problem_id)
+      - unless skip 
+          tr
+            td
+              .problem_id
+                = link_to problem_id, "http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=#{problem_id}"
+            td
+              - if solved_by_first
+                | o
+            td
+              - if solved_by_second
+                | o

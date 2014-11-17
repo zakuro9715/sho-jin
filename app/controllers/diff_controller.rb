@@ -1,14 +1,15 @@
 class DiffController < ApplicationController
-  before_action :set_user_names
+  before_action :set_params
   def index
     @problems_first = get_solved_problems_id(@first_user)
     @problems_second = get_solved_problems_id(@second_user)
   end
 
   private
-    def set_user_names
+    def set_params
       @first_user = params[:first]
       @second_user = params[:second]
+      @xor = true if params[:xor] else false
     end
 
     def get_solved_problems_id(username)
